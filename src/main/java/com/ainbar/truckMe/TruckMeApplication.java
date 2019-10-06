@@ -6,10 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 
 @SpringBootApplication
+@EnableScheduling
 @Slf4j
-public class TruckMeApplication implements CommandLineRunner {
+public class TruckMeApplication {
 
 	@Autowired
 	BatchServiceImpl batchService;
@@ -18,8 +21,8 @@ public class TruckMeApplication implements CommandLineRunner {
 		SpringApplication.run(TruckMeApplication.class, args);
 	}
 
-	@Override
-	public void run(String... args) {
+	@Scheduled(cron = "0 55 17 * * ?")
+	public void run() {
 		log.info("Batch processing ...");
 		batchService.getRecords();
 	}
