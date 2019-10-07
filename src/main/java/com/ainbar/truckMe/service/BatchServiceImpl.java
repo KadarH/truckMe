@@ -7,6 +7,8 @@ import com.ainbar.truckMe.repo.TcPoisitionsRepo;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@Slf4j
 public class BatchServiceImpl implements BatchService {
 
     private TcPoisitionsRepo tcPoisitionsRepo;
@@ -26,7 +29,7 @@ public class BatchServiceImpl implements BatchService {
     }
 
     @Override
-    public List<Record> getRecords(){
+    public List<Record> SaveRecordsFromTcPositions() {
         List<TcPositions> list = tcPoisitionsRepo.findAll();
         List<Record> records = new ArrayList<>();
         Record record;
@@ -75,6 +78,17 @@ public class BatchServiceImpl implements BatchService {
         }
         return recordRepo.saveAll(records);
 
+    }
+
+    @Override
+    public List<Record> getRecords() {
+        return recordRepo.findAll();
+    }
+
+    @Scheduled(cron = "0 55 17 * * ?")
+    public void run() {
+        log.info("Batch processing ...");
+        SaveRecordsFromTcPositions();
     }
 }
 
