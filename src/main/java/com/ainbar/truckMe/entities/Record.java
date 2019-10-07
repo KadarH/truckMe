@@ -1,5 +1,6 @@
 package com.ainbar.truckMe.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -28,8 +29,8 @@ public class Record {
     private float speed;
     private float course;
     private String address;
+    @JsonIgnore
     private String attributes;
-
     private Boolean ignition;
     private Double poids;
     private double accuracy;
