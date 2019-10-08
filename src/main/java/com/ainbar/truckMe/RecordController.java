@@ -1,14 +1,14 @@
 package com.ainbar.truckMe;
 
 import com.ainbar.truckMe.entities.Record;
+import com.ainbar.truckMe.entities.Voyage;
 import com.ainbar.truckMe.service.BatchService;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController("/records")
+@RestController("/")
 public class RecordController {
 
     private BatchService batchService;
@@ -17,9 +17,14 @@ public class RecordController {
         this.batchService = batchService;
     }
 
-    @GetMapping("")
+    @GetMapping("records")
     public List<Record> getRecords(){
         return batchService.getRecords();
+    }
+
+    @GetMapping("voyages")
+    public List<Voyage> calculVoyages() {
+        return batchService.calculVoyages();
     }
 
 }

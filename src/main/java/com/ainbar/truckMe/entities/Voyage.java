@@ -2,8 +2,12 @@ package com.ainbar.truckMe.entities;
 
 import lombok.Data;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Data
@@ -12,15 +16,13 @@ public class Voyage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime dateFix;
-    private LocalDateTime dateSys;
-    private LocalDateTime dateDevice;
-    private Double latitude;
-    private Double longitude;
+    private LocalDate date;
+    private LocalTime time;
     private Double poids;
-    private Boolean ignition;
-
-    @ManyToOne
-    private Device device;
+    private String categoriePoids;
+    private long kmParcourue;
+    private int heureTravaillees;
+    private Long idCamion;
+    private String coordonnees;
 
 }
