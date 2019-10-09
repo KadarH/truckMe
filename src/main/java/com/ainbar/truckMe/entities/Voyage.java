@@ -18,10 +18,11 @@ public class Voyage {
     private Long id;
     private LocalDate date;
     private LocalTime time;
+    private Double sensorValue;
     private Double poids;
     private String categoriePoids;
     private long kmParcourue;
-    private int heureTravaillees;
+    private long heureTravaillees;
     private Long idCamion;
     private String coordonnees;
 

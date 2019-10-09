@@ -2,6 +2,7 @@ package com.ainbar.truckMe.repo;
 
 import com.ainbar.truckMe.entities.Record;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -9,5 +10,8 @@ import java.util.List;
 @Repository
 public interface RecordRepo extends JpaRepository<Record, Long> {
 
-    List<Record> findAllByOrderByServertimeAsc();
+    List<Record> findAllBySavedFalseOrderByServertimeAsc();
+
+    @Query("Select r from Record r WHERE r.poids < ?1")
+    List<Record> findAllByPoidsSmallThanX(int X);
 }

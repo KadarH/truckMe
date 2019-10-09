@@ -35,4 +35,6 @@ public class Record {
     private Double poids;
     private double accuracy;
     private String network;
+    private long distance;
+    private Boolean saved = false;
 }
