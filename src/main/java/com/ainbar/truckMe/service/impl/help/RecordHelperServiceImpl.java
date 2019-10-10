@@ -72,7 +72,7 @@ public class RecordHelperServiceImpl {
                     distance = field.getValue().asLong();
             }
 
-            if (event == 0 && !ignition) {
+            if (event == 0) {
                 record.setIgnition(ignition);
                 record.setPoids((double) poids);
                 record.setDistance(distance);
