@@ -33,6 +33,5 @@ jobs: # a collection of steps
             mkdir ~/.ssh
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               echo "StrictHostKeyChecking no" > ~/.ssh/config
-              scp -r target/*.jar root@167.71.107.32:./app.jar
-              ssh -T root@167.71.107.32 "systemctl restart truckMe"
+              scp -r target/*.jar circleci@167.71.107.32:./app.jar
             fi
