@@ -47,8 +47,8 @@ public class VoyageHelperServiceImpl {
             } else if (j >= nbrRecords && !list1.isEmpty()) {
                 Record maxPoids = list1.stream().max(Comparator.comparing(Record::getPoids)).orElseThrow(NoSuchElementException::new);
 
-                LocalDate date = maxPoids.getDevicetime().toLocalDateTime().toLocalDate();
-                LocalTime time = maxPoids.getDevicetime().toLocalDateTime().toLocalTime();
+                LocalDate date = maxPoids.getServertime().toLocalDateTime().toLocalDate();
+                LocalTime time = maxPoids.getServertime().toLocalDateTime().toLocalTime();
                 double sensorValue = maxPoids.getPoids();
                 Integer camionId = maxPoids.getDeviceid();
                 String coordonnees = maxPoids.getLatitude() + "," + maxPoids.getLongitude();
@@ -73,7 +73,7 @@ public class VoyageHelperServiceImpl {
                 if (sensorValue > seuilB)
                     voyage.setCategoriePoids("C");
 
-                voyage.setPoids(sensorValue * 10);
+                voyage.setPoids(sensorValue * 50 / 1300);
                 list.add(voyage);
 
                 list1 = new ArrayList<>();
