@@ -31,5 +31,5 @@ jobs: # a collection of steps
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               echo "StrictHostKeyChecking no" > ~/.ssh/config
-              scp -r target/*.jar circleci@167.71.107.32:./app.jar
+              scp -r target/*.jar root@167.71.107.32:./app.jar
             fi
