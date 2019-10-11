@@ -45,7 +45,8 @@ public class VoyageHelperServiceImpl {
                 list1.add(records.get(i));
                 j++;
             } else if (j >= nbrRecords && !list1.isEmpty() &&
-                    i < list.size() - 4 && list.get(i + 1).getPoids() < X && list.get(i + 2).getPoids() < X && list.get(i + 3).getPoids() < X) {
+                    i < (records.size() - 4) && records.get(i + 1).getPoids() >= X && records.get(i + 2).getPoids() >= X &&
+                    records.get(i + 3).getPoids() >= X) {
                 Record maxPoids = list1.stream().max(Comparator.comparing(Record::getPoids)).orElseThrow(NoSuchElementException::new);
 
                 LocalDate date = maxPoids.getServertime().toLocalDateTime().toLocalDate();
@@ -87,7 +88,8 @@ public class VoyageHelperServiceImpl {
                 if (i >= list.size() - 4) {
                     j = 0;
                     list1 = new ArrayList<>();
-                } else if (i < list.size() - 4 && list.get(i + 1).getPoids() < X && list.get(i + 2).getPoids() < X && list.get(i + 3).getPoids() < X) {
+                } else if (i < records.size() - 4 && records.get(i + 1).getPoids() < X && records.get(i + 2).getPoids() < X &&
+                        records.get(i + 3).getPoids() < X) {
                     j = 0;
                     list1 = new ArrayList<>();
                 }
