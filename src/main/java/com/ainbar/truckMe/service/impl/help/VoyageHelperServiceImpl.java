@@ -44,7 +44,8 @@ public class VoyageHelperServiceImpl {
             if (currentPoids >= X && j < nbrRecords) {
                 list1.add(records.get(i));
                 j++;
-            } else if (j >= nbrRecords && !list1.isEmpty()) {
+            } else if (j >= nbrRecords && !list1.isEmpty() &&
+                    i < list.size() - 4 && list.get(i + 1).getPoids() < X && list.get(i + 2).getPoids() < X && list.get(i + 3).getPoids() < X) {
                 Record maxPoids = list1.stream().max(Comparator.comparing(Record::getPoids)).orElseThrow(NoSuchElementException::new);
 
                 LocalDate date = maxPoids.getServertime().toLocalDateTime().toLocalDate();
