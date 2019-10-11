@@ -1,5 +1,12 @@
 version: 2 # use CircleCI 2.0
 jobs: # a collection of steps
+  deploy-job:
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "85:4f:92:95:ec:3a:fa:62:3a:52:11:d6:d0:38:d0:5c"
+            - "bb:dd:03:00:0e:cc:d2:4d:00:cb:b2:ff:4d:b8:05:6f"
+
   build: # runs not using Workflows must have a `build` job as entry point
 
     working_directory: ~/repo # directory where steps will run
@@ -33,9 +40,3 @@ jobs: # a collection of steps
               echo "StrictHostKeyChecking no" > ~/.ssh/config
               scp -r target/*.jar root@167.71.107.32:./app.jar
             fi
-  deploy-job:
-    steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "85:4f:92:95:ec:3a:fa:62:3a:52:11:d6:d0:38:d0:5c"
-            - "bb:dd:03:00:0e:cc:d2:4d:00:cb:b2:ff:4d:b8:05:6f"
