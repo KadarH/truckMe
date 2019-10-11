@@ -83,8 +83,14 @@ public class VoyageHelperServiceImpl {
                 continue;
             }
             if (currentPoids < X && (list1.size() == nbrRecords || list1.isEmpty())) {
-                j = 0;
-                list1 = new ArrayList<>();
+                if (i >= list.size() - 4) {
+                    j = 0;
+                    list1 = new ArrayList<>();
+                } else if (i < list.size() - 4 && list.get(i + 1).getPoids() < X && list.get(i + 2).getPoids() < X && list.get(i + 3).getPoids() < X) {
+                    j = 0;
+                    list1 = new ArrayList<>();
+                }
+
             }
         }
         recordRepo.saveAll(records);
