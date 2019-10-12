@@ -39,55 +39,58 @@ public class VoyageHelperServiceImpl {
         int j = 0;
         List<Record> list1 = new ArrayList<>();
         for (int i = 0; i < records.size(); i++) {
-            records.get(i).setSaved(true);
-            double currentPoids = records.get(i).getPoids();
-            if (currentPoids >= X && j < nbrRecords) {
-                list1.add(records.get(i));
-                j++;
-            } else if (j >= nbrRecords && !list1.isEmpty()) {
-                Record maxPoids = list1.stream().max(Comparator.comparing(Record::getPoids)).orElseThrow(NoSuchElementException::new);
+            if (records.get(i).getPoids() != null) {
+                records.get(i).setSaved(true);
+                System.out.println(i);
+                double currentPoids = records.get(i).getPoids();
+                if (currentPoids >= X && j < nbrRecords) {
+                    list1.add(records.get(i));
+                    j++;
+                } else if (j >= nbrRecords && !list1.isEmpty()) {
+                    Record maxPoids = list1.stream().max(Comparator.comparing(Record::getPoids)).orElseThrow(NoSuchElementException::new);
 
-                LocalDate date = maxPoids.getServertime().toLocalDateTime().toLocalDate();
-                LocalTime time = maxPoids.getServertime().toLocalDateTime().toLocalTime();
-                double sensorValue = maxPoids.getPoids();
-                Integer camionId = maxPoids.getDeviceid();
-                String coordonnees = maxPoids.getLatitude() + "," + maxPoids.getLongitude();
+                    LocalDate date = maxPoids.getDevicetime().toLocalDateTime().toLocalDate();
+                    LocalTime time = maxPoids.getDevicetime().toLocalDateTime().toLocalTime();
+                    double sensorValue = maxPoids.getPoids();
+                    Integer camionId = maxPoids.getDeviceid();
+                    String coordonnees = maxPoids.getLatitude() + "," + maxPoids.getLongitude();
 
-                Voyage voyage = new Voyage();
+                    Voyage voyage = new Voyage();
 
-                voyage.setDate(date);
-                voyage.setTime(time);
-                voyage.setSensorValue(sensorValue);
-                voyage.setIdCamion(camionId.longValue());
-                voyage.setCoordonnees(coordonnees);
+                    voyage.setDate(date);
+                    voyage.setTime(time);
+                    voyage.setSensorValue(sensorValue);
+                    voyage.setIdCamion(camionId.longValue());
+                    voyage.setCoordonnees(coordonnees);
 
-                long hours = ChronoUnit.HOURS.between(records.get(0).getDevicetime().toLocalDateTime(),
-                        records.get(records.size() - 1).getDevicetime().toLocalDateTime());
-                voyage.setHeureTravaillees(hours);
-                voyage.setKmParcourue(records.get(records.size() - 1).getDistance() - records.get(0).getDistance());
+                    long hours = ChronoUnit.HOURS.between(records.get(0).getDevicetime().toLocalDateTime(),
+                            records.get(records.size() - 1).getDevicetime().toLocalDateTime());
+                    voyage.setHeureTravaillees(hours);
+                    voyage.setKmParcourue(records.get(records.size() - 1).getDistance() - records.get(0).getDistance());
 
-                if (sensorValue < seuilA)
-                    voyage.setCategoriePoids("A");
-                else if (sensorValue > seuilA && sensorValue < seuilB)
-                    voyage.setCategoriePoids("B");
-                if (sensorValue > seuilB)
-                    voyage.setCategoriePoids("C");
+                    if (sensorValue < seuilA)
+                        voyage.setCategoriePoids("A");
+                    else if (sensorValue > seuilA && sensorValue < seuilB)
+                        voyage.setCategoriePoids("B");
+                    if (sensorValue > seuilB)
+                        voyage.setCategoriePoids("C");
 
-                voyage.setPoids(sensorValue * 50 / 1300);
-                list.add(voyage);
+                    voyage.setPoids(sensorValue * 50 / 1300);
+                    list.add(voyage);
 
-                list1 = new ArrayList<>();
+                    list1 = new ArrayList<>();
 
-            } else if (j > nbrRecords && currentPoids > X) {
-                j = 0;
-                continue;
-            }
-            if (currentPoids < X && (list1.size() == nbrRecords || list1.isEmpty())) {
-                j = 0;
-                list1 = new ArrayList<>();
+                } else if (j > nbrRecords && currentPoids > X) {
+                    j = 0;
+                    continue;
+                }
+                if (currentPoids < X && (list1.size() == nbrRecords || list1.isEmpty())) {
+                    j = 0;
+                    list1 = new ArrayList<>();
+                }
+                recordRepo.save(records.get(i));
             }
         }
-        recordRepo.saveAll(records);
         voyageRepo.saveAll(list);
         return list;
     }

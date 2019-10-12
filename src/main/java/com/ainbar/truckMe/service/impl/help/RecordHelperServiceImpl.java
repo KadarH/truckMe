@@ -78,8 +78,8 @@ public class RecordHelperServiceImpl {
                 record.setDistance(distance);
                 records.add(record);
             }
+            recordRepo.save(record);
         }
-        records = recordRepo.saveAll(records);
         return records;
     }
 
