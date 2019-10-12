@@ -4,8 +4,7 @@
 <h2>Truck-Me</h2>
 
 ![GitHub](https://img.shields.io/github/license/KadarH/truckMe)
-![GitHub Issues](https://img.shields.io/github/issues/KadarH/truckMe)
-![GitHub Stars](https://img.shields.io/github/stars/KadarH/truckMe)
+[![CircleCI](https://circleci.com/gh/KadarH/truckMe/tree/master.svg?style=svg)]
 </div>
 
 ---
