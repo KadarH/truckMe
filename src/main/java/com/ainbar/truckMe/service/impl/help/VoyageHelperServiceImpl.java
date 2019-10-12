@@ -34,7 +34,7 @@ public class VoyageHelperServiceImpl {
     }
 
     public List<Voyage> saveVoyages() {
-        List<Record> records = recordRepo.findAllBySavedFalseOrderByServertimeAsc();
+        List<Record> records = recordRepo.findAllBySavedFalseOrderByDevicetimeAsc();
         List<Voyage> list = new ArrayList<>();
         int j = 0;
         List<Record> list1 = new ArrayList<>();
@@ -44,9 +44,7 @@ public class VoyageHelperServiceImpl {
             if (currentPoids >= X && j < nbrRecords) {
                 list1.add(records.get(i));
                 j++;
-            } else if (j >= nbrRecords && !list1.isEmpty() &&
-                    i < (records.size() - 4) && records.get(i + 1).getPoids() >= X && records.get(i + 2).getPoids() >= X &&
-                    records.get(i + 3).getPoids() >= X) {
+            } else if (j >= nbrRecords && !list1.isEmpty()) {
                 Record maxPoids = list1.stream().max(Comparator.comparing(Record::getPoids)).orElseThrow(NoSuchElementException::new);
 
                 LocalDate date = maxPoids.getServertime().toLocalDateTime().toLocalDate();
@@ -85,15 +83,8 @@ public class VoyageHelperServiceImpl {
                 continue;
             }
             if (currentPoids < X && (list1.size() == nbrRecords || list1.isEmpty())) {
-                if (i >= list.size() - 4) {
-                    j = 0;
-                    list1 = new ArrayList<>();
-                } else if (i < records.size() - 4 && records.get(i + 1).getPoids() < X && records.get(i + 2).getPoids() < X &&
-                        records.get(i + 3).getPoids() < X) {
-                    j = 0;
-                    list1 = new ArrayList<>();
-                }
-
+                j = 0;
+                list1 = new ArrayList<>();
             }
         }
         recordRepo.saveAll(records);

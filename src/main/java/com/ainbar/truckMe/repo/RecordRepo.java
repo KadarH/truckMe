@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface RecordRepo extends JpaRepository<Record, Long> {
 
-    List<Record> findAllBySavedFalseOrderByServertimeAsc();
+    List<Record> findAllBySavedFalseOrderByDevicetimeAsc();
 
     @Query("Select r from Record r WHERE r.poids < ?1")
     List<Record> findAllByPoidsSmallThanX(int X);
