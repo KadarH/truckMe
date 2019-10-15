@@ -17,15 +17,18 @@ public class Record {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @JsonIgnore
-    private String protocol;
     private Integer deviceid;
     private Timestamp devicetime;
-
-    @JsonIgnore
-    private boolean valid;
+    private Boolean saved = false;
     private double latitude;
     private double longitude;
+    @JsonIgnore
+    private boolean valid;
+
+    private Double poids;
+
+    @JsonIgnore
+    private String protocol;
 
     @JsonIgnore
     private float altitude;
@@ -41,7 +44,6 @@ public class Record {
 
     @JsonIgnore
     private Boolean ignition;
-    private Double poids;
 
     @JsonIgnore
     private double accuracy;
@@ -51,5 +53,4 @@ public class Record {
 
     @JsonIgnore
     private long distance;
-    private Boolean saved = false;
 }
