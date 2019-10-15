@@ -54,13 +54,13 @@ public class BatchServiceImpl implements BatchService {
         calculRecords();
     }
 
-    @Scheduled(cron = "0 10 0 * * ?")
+    @Scheduled(cron = "0 7 0 * * ?")
     public void calculVoyageBatch() {
         log.info("Batch processing for calcul Voyage ...");
         calculVoyages();
     }
 
-    @Scheduled(cron = "0 20 0 * * ?")
+    @Scheduled(cron = "0 14 0 * * ?")
     public void cleanerBatch() {
         log.info("Batch processing for cleaning Database ...");
         batchCleanerService.cleanTcPositions();
