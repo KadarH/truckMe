@@ -66,7 +66,7 @@ public class BatchServiceImpl implements BatchService {
         batchCleanerService.cleanTcPositions();
     }
 
-    @Scheduled(cron = "0 0/10 * * * ?")
+    @Scheduled(cron = "0 0/5 * * * ?")
     public void cleanerPositions() {
         log.info("Batch processing for cleaning Database ...");
         batchCleanerService.cleanTcPositionsNotWorking();
