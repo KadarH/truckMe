@@ -17,17 +17,10 @@ public class Record {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-
     @JsonIgnore
     private String protocol;
     private Integer deviceid;
-    private Timestamp servertime;
-
-    @JsonIgnore
     private Timestamp devicetime;
-
-    @JsonIgnore
-    private Timestamp fixtime;
 
     @JsonIgnore
     private boolean valid;
@@ -42,15 +35,21 @@ public class Record {
 
     @JsonIgnore
     private float course;
-    private String address;
+
     @JsonIgnore
-    private String attributes;
+    private String address;
+
+    @JsonIgnore
     private Boolean ignition;
     private Double poids;
+
+    @JsonIgnore
     private double accuracy;
 
     @JsonIgnore
     private String network;
+
+    @JsonIgnore
     private long distance;
     private Boolean saved = false;
 }

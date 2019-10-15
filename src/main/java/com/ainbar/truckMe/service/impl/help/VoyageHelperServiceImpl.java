@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @Service
@@ -82,8 +81,6 @@ public class VoyageHelperServiceImpl {
                     Integer camionId = maxA.getDeviceid();
                     String coordonnees = maxA.getLatitude() + "," + maxA.getLongitude();
                     double sensorValue = maxA.getPoids();
-                    long hours = ChronoUnit.HOURS.between(records.get(0).getDevicetime().toLocalDateTime(),
-                            records.get(records.size() - 1).getDevicetime().toLocalDateTime());
 
                     Voyage voyage = new Voyage();
                     voyage.setDate(date);
@@ -91,8 +88,6 @@ public class VoyageHelperServiceImpl {
                     voyage.setSensorValue(sensorValue);
                     voyage.setIdCamion(camionId.longValue());
                     voyage.setCoordonnees(coordonnees);
-                    voyage.setHeureTravaillees(hours);
-                    voyage.setKmParcourue(records.get(records.size() - 1).getDistance() - records.get(0).getDistance());
                     voyage.setPoids(sensorValue * 50 / 1300);
                     voyage.setMaxA(maxA.getPoids());
                     voyage.setMaxB(Optional.ofNullable(maxB).map(Record::getPoids).orElse(null));
@@ -115,9 +110,11 @@ public class VoyageHelperServiceImpl {
                     calculB = false;
                     calculC = false;
                 }
-
             }
+            record.setSaved(true);
+            recordRepo.save(record);
         }
+
         voyageRepo.saveAll(list);
         return list;
     }

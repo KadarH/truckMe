@@ -48,22 +48,21 @@ public class BatchServiceImpl implements BatchService {
         return voyageHelperService.getVoyages();
     }
 
-    @Scheduled(cron = "0 0 17 * * ?")
+    @Scheduled(cron = "0 0 0 * * ?")
     public void calculRecordsBatch() {
         log.info("Batch processing for calcul Records ...");
         calculRecords();
     }
 
-    @Scheduled(cron = "0 10 17 * * ?")
+    @Scheduled(cron = "0 10 0 * * ?")
     public void calculVoyageBatch() {
         log.info("Batch processing for calcul Voyage ...");
         calculVoyages();
     }
 
-    @Scheduled(cron = "0 20 17 * * ?")
+    @Scheduled(cron = "0 20 0 * * ?")
     public void cleanerBatch() {
         log.info("Batch processing for cleaning Database ...");
         batchCleanerService.cleanTcPositions();
-        batchCleanerService.cleanRecordTable();
     }
 }

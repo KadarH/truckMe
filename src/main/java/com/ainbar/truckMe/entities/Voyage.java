@@ -21,8 +21,6 @@ public class Voyage {
     private Double sensorValue;
     private Double poids;
     private String categoriePoids;
-    private long kmParcourue;
-    private long heureTravaillees;
     private Long idCamion;
     private String coordonnees;
     private String typeVoyage;

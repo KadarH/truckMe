@@ -34,14 +34,11 @@ public class RecordHelperServiceImpl {
         Record record;
         for (TcPositions tcPositions : list) {
             record = new Record();
-            record.setAttributes(tcPositions.getAttributes());
             record.setDeviceid(tcPositions.getDeviceid());
             record.setAltitude(tcPositions.getAltitude());
             record.setLatitude(tcPositions.getLatitude());
             record.setLongitude(tcPositions.getLongitude());
             record.setDevicetime(tcPositions.getDevicetime());
-            record.setServertime(tcPositions.getServertime());
-            record.setFixtime(tcPositions.getFixtime());
             record.setSaved(false);
             JsonFactory factory = new JsonFactory();
 
@@ -49,11 +46,9 @@ public class RecordHelperServiceImpl {
             JsonNode rootNode;
             try {
                 rootNode = mapper.readTree(tcPositions.getAttributes());
-
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-
             Iterator<Map.Entry<String, JsonNode>> fieldsIterator = rootNode.fields();
             boolean ignition = false;
             int event = 2;
@@ -76,9 +71,11 @@ public class RecordHelperServiceImpl {
                 record.setIgnition(ignition);
                 record.setPoids((double) poids);
                 record.setDistance(distance);
-                records.add(record);
             }
-            if (record.getPoids() != null && record.getPoids() >= 650) recordRepo.save(record);
+            if (record.getPoids() != null && record.getPoids() >= 650) {
+                records.add(record);
+                recordRepo.save(record);
+            }
         }
         return records;
     }
