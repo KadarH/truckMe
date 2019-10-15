@@ -78,7 +78,7 @@ public class RecordHelperServiceImpl {
                 record.setDistance(distance);
                 records.add(record);
             }
-            recordRepo.save(record);
+            if (record.getPoids() != null && record.getPoids() >= 650) recordRepo.save(record);
         }
         return records;
     }

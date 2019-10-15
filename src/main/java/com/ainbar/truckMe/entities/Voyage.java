@@ -25,5 +25,6 @@ public class Voyage {
     private long heureTravaillees;
     private Long idCamion;
     private String coordonnees;
+    private String typeVoyage;
 
 }
