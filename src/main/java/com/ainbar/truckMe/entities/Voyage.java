@@ -26,5 +26,8 @@ public class Voyage {
     private Long idCamion;
     private String coordonnees;
     private String typeVoyage;
+    private Double maxA;
+    private Double maxB;
+    private Double maxC;
 
 }

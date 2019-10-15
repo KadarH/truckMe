@@ -35,7 +35,7 @@ public class BatchServiceImpl implements BatchService {
 
     @Override
     public List<Voyage> calculVoyages() {
-        return this.voyageHelperService.saveVoyages_new();
+        return this.voyageHelperService.saveVoyages();
     }
 
     @Override
