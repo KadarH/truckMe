@@ -1,4 +1,4 @@
-package com.ainbar.truckMe;
+package com.ainbar.truckMe.controller;
 
 import com.ainbar.truckMe.entities.Record;
 import com.ainbar.truckMe.entities.Voyage;
@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController("/")
-public class RecordController {
+public class IndexController {
 
     private BatchService batchService;
 
-    public RecordController(BatchService batchService) {
+    public IndexController(BatchService batchService) {
         this.batchService = batchService;
     }
 
