@@ -14,5 +14,5 @@ public interface RecordRepo extends JpaRepository<Record, Long> {
 
     List<Record> findAllByDeviceid(Integer id);
 
-    List<Record> findAllByDeviceidAndDevicetimeLikeOrderByDevicetimeAsc(Integer idCamion, Timestamp date);
+    List<Record> findAllByDeviceidAndDevicetimeBetweenOrderByDevicetimeAsc(Integer idCamion, Timestamp date, Timestamp date2);
 }

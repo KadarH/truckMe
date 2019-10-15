@@ -32,9 +32,9 @@ public class RecordServiceImpl implements RecordService {
     @Override
     public List<Record> getRecordByDeviceidAndDevicetime(Integer idCamion, String date) {
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDateTime formatDateTime = LocalDateTime.parse(date, formatter);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime formatDateTime = LocalDateTime.parse(date + " 00:00", formatter);
         Timestamp deviceDate = Timestamp.valueOf(formatDateTime);
-        return recordRepo.findAllByDeviceidAndDevicetimeLikeOrderByDevicetimeAsc(idCamion, deviceDate);
+        return recordRepo.findAllByDeviceidAndDevicetimeBetweenOrderByDevicetimeAsc(idCamion, deviceDate, Timestamp.valueOf(deviceDate.toLocalDateTime().plusDays(1)));
     }
 }
