@@ -12,4 +12,6 @@ public interface BatchService {
     List<Record> getRecords();
     List<Voyage> calculVoyages();
     List<Voyage> getVoyages();
+
+    void clean();
 }

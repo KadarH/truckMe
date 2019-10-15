@@ -48,6 +48,11 @@ public class BatchServiceImpl implements BatchService {
         return voyageHelperService.getVoyages();
     }
 
+    @Override
+    public void clean() {
+        cleanerBatch();
+    }
+
     @Scheduled(cron = "0 0 0 * * ?")
     public void calculRecordsBatch() {
         log.info("Batch processing for calcul Records ...");
