@@ -53,19 +53,19 @@ public class BatchServiceImpl implements BatchService {
         cleanerBatch();
     }
 
-    @Scheduled(cron = "0 21 0 * * *")
+    @Scheduled(cron = "0 31 23 * * *")
     public void calculRecordsBatch() {
         log.info("Batch processing for calcul Records ...");
         calculRecords();
     }
 
-    @Scheduled(cron = "0 23 0 * * *")
+    @Scheduled(cron = "0 33 23 * * *")
     public void calculVoyageBatch() {
         log.info("Batch processing for calcul Voyage ...");
         calculVoyages();
     }
 
-    @Scheduled(cron = "0 26 0 * * *")
+    @Scheduled(cron = "0 36 23 * * *")
     public void cleanerBatch() {
         log.info("Batch processing for cleaning Database ...");
         batchCleanerService.cleanTcPositions();
