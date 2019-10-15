@@ -22,6 +22,7 @@ public class Record {
     private Boolean saved = false;
     private double latitude;
     private double longitude;
+
     @JsonIgnore
     private boolean valid;
 
