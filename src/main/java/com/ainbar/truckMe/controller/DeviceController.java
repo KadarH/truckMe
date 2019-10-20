@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/devices")
+@CrossOrigin(maxAge = 3600)
 @Slf4j
 public class DeviceController {
 
