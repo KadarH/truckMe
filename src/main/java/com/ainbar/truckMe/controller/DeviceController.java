@@ -44,7 +44,7 @@ public class DeviceController {
 
     @ResponseStatus(value = HttpStatus.OK)
     @GetMapping(value = "delete/{code}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void deleteDevice(@RequestParam String code) {
+    public void deleteDevice(@PathVariable String code) {
         log.info("Delete device with code = " + code);
         deviceService.deleteDevice(code);
     }
