@@ -43,10 +43,10 @@ public class DeviceController {
         return deviceService.updateDevice(device);
     }
 
-    @ResponseStatus(value = HttpStatus.OK)
-    @GetMapping(value = "delete/{code}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void deleteDevice(@PathVariable String code) {
+    @GetMapping(value = "delete/{code}")
+    public List<Device> deleteDevice(@PathVariable String code) {
         log.info("Delete device with code = " + code);
         deviceService.deleteDevice(code);
+        return deviceService.listAll();
     }
 }
