@@ -33,8 +33,25 @@ public class VoyagesController {
     }
 
     @GetMapping("/{idCamion}/{date}")
-    public List<Voyage> getVoyagesByIdDevice(@PathVariable Long idCamion, @PathVariable String date) {
+    public List<Voyage> getVoyagesByIdDeviceAndDate(@PathVariable Long idCamion, @PathVariable String date) {
         return voyageService.getVoyagesByDevicetime(idCamion, date);
+    }
+
+    @GetMapping("/{idCamion}/{date}/export")
+    public void exportVoyagesByIdDeviceAndDate(@PathVariable Long idCamion, @PathVariable String date, HttpServletResponse response) throws Exception {
+        String filename = "voyages_" + idCamion + "_" + LocalDate.now() + ".csv";
+        response.setContentType("text/csv");
+        response.setHeader(HttpHeaders.CONTENT_DISPOSITION,
+                "attachment; filename=\"" + filename + "\"");
+
+        //create a csv writer
+        StatefulBeanToCsv<Voyage> writer = new StatefulBeanToCsvBuilder<Voyage>(response.getWriter())
+                .withQuotechar(CSVWriter.NO_QUOTE_CHARACTER)
+                .withSeparator(';')
+                .withOrderedResults(false)
+                .build();
+
+        writer.write(voyageService.getVoyagesByDevicetime(idCamion, date));
     }
 
     @GetMapping("/all")
