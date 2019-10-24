@@ -14,8 +14,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.FileWriter;
@@ -30,13 +33,40 @@ import java.util.List;
 @Slf4j
 public class VoyagesController {
 
+    private JavaMailSender sender;
     private BatchService batchService;
     private VoyageService voyageService;
 
-    public VoyagesController(BatchService batchService, VoyageService voyageService) {
+    public VoyagesController(BatchService batchService, VoyageService voyageService, JavaMailSender sender) {
         this.batchService = batchService;
         this.voyageService = voyageService;
+        this.sender = sender;
     }
+
+    @GetMapping("/email")
+    @ResponseBody
+    String home() {
+        try {
+            sendEmail();
+            return "Email Sent!";
+        } catch (Exception ex) {
+            return "Error in sending email: " + ex;
+        }
+    }
+
+    private void sendEmail() throws Exception {
+        MimeMessage message = sender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setTo("kadar.hamza@gmail.com");
+        helper.setText("How are you?");
+        helper.setSubject("Hi");
+
+        sender.send(message);
+    }
+
+
+
 
     @GetMapping("/{idCamion}")
     public List<Voyage> getVoyagesByIdDevice(@PathVariable Long idCamion) {
@@ -83,7 +113,6 @@ public class VoyagesController {
         } else return ResponseEntity.notFound().build();
 
     }
-
 
     @GetMapping("/all")
     public List<Voyage> getVoyages() {
