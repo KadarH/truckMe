@@ -25,7 +25,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/records")
-@CrossOrigin(maxAge = 3600)
 @Slf4j
 public class RecordController {
 
