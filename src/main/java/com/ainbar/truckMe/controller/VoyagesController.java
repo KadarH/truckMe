@@ -84,7 +84,6 @@ public class VoyagesController {
 
     }
 
-
     @GetMapping("/all")
     public List<Voyage> getVoyages() {
         return batchService.getVoyages();
