@@ -108,7 +108,8 @@ public class RecordController {
     }
 
     @GetMapping(value = "/batch")
-    public List<Record> calculRecords() {
+    public @ResponseBody
+    List<Record> calculRecords() {
         return batchService.calculRecords();
     }
 }
