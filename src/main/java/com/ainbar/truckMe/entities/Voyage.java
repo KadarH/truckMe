@@ -16,14 +16,15 @@ public class Voyage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private LocalDate date;
     private LocalTime time;
     private Double sensorValue;
     private Double poids;
-    private String categoriePoids;
-    private Long idCamion;
-    private String coordonnees;
     private String typeVoyage;
+    private Long idCamion;
+    private String categoriePoids;
+    private String coordonnees;
     private Double maxA;
     private Double maxB;
     private Double maxC;
